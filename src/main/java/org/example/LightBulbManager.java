@@ -31,6 +31,13 @@ public class LightBulbManager {
         this.ib = value;
     }
 
+    public void setLightBulbAFinalConfig(int value) {
+        this.fa = value;
+    }
+    public void setLightBulbConfigBFinalConfig(int value) {
+        this.fb = value;
+    }
+
     public void increaseOneClick() {
         this.numberOfclicks++;
     }
@@ -74,5 +81,10 @@ public class LightBulbManager {
 
     public boolean isLampBCorrect() {
         return this.ib == this.fb;
+    }
+
+    public void SolveLightBulbProblem() {
+        if(!isLampBCorrect()) this.clickSecondSwitch();
+        if(!isLampACorrect()) this.clickFirstSwitch();
     }
 }
