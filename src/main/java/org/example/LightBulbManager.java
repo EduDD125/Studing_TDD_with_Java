@@ -19,7 +19,46 @@ public class LightBulbManager {
         this.fb = fb;
     }
 
+
+
+
+    public void setLightBulbA(int value) {
+        this.ia = value;
+    }
+    public void setLightBulbB(int value) {
+        this.ib = value;
+    }
+
+    public int getLightBulbA() {
+        return this.ia;
+    }
+
+    public int getLightBulbB() {
+        return this.ib;
+    }
+
     boolean isInputInvalid(int input) {
         return input == 0 || input == 1;
+    }
+
+    public void clickFirstSwitch() {
+        if (this.ia == 0) {
+            this.ia++;
+            return;
+        }
+        this.ia--;
+    }
+
+
+    public void clickSecondSwitch() {
+        if (this.ia == 0) {
+            this.ia++;
+        }
+        else this.ia--;
+        if (this.ib == 0) {
+            this.ib++;
+            return;
+        }
+        this.ib--;
     }
 }
