@@ -3,11 +3,7 @@ package org.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.awt.*;
-import java.util.ArrayList;
-
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LightBulbManagerTest {
@@ -23,10 +19,10 @@ public class LightBulbManagerTest {
             int c = 1;
             int d = 2;
             LightBulbManager manager = new LightBulbManager();
-            assertEquals(manager.isInputInvalid(a), false);
-            assertEquals(manager.isInputInvalid(b), true);
-            assertEquals(manager.isInputInvalid(c), true);
-            assertEquals(manager.isInputInvalid(d), false);
+            assertFalse(manager.isInputInvalid(a));
+            assertTrue(manager.isInputInvalid(b));
+            assertTrue(manager.isInputInvalid(c));
+            assertFalse(manager.isInputInvalid(d));
         }
 
         @Test
@@ -37,9 +33,8 @@ public class LightBulbManagerTest {
             int fa = 0;
             int fb = 100;
 
-            Exception exception01 = assertThrows(IllegalArgumentException.class, () -> {
-                new LightBulbManager(ia, ib, fa, fb);
-            });
+            Exception exception01 = assertThrows(IllegalArgumentException.class, () ->
+                new LightBulbManager(ia, ib, fa, fb));
 
             assertEquals("Input must be either 0 or 1", exception01.getMessage());
         }
@@ -53,7 +48,6 @@ public class LightBulbManagerTest {
             assertEquals(manager.getLightBulbA(), 1);
             manager.clickFirstSwitch();
             assertEquals(manager.getLightBulbA(), 0);
-
         }
 
         @Test
@@ -81,5 +75,22 @@ public class LightBulbManagerTest {
             assertEquals(manager.getLightBulbB(), 1);
         }
 
+        @Test
+        @DisplayName("Should return if lamp A is in correct configuration")
+        void ShouldReturnIfLampAIsInCorrectConfiguration() {
+            LightBulbManager manager = new LightBulbManager(0 ,0,1,1);
+            assertFalse(manager.isLampACorrect());
+            manager.clickFirstSwitch();
+            assertTrue(manager.isLampACorrect());
+        }
+
+        @Test
+        @DisplayName("Should return if lamp B is in correct configuration")
+        void ShouldReturnIfLampBIsInCorrectConfiguration() {
+            LightBulbManager manager = new LightBulbManager(1 ,1,0,0);
+            assertFalse(manager.isLampBCorrect());
+            manager.clickSecondSwitch();
+            assertTrue(manager.isLampBCorrect());
+        }
     }
 }
