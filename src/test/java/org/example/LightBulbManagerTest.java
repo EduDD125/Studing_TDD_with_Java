@@ -3,6 +3,9 @@ package org.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
 import static junit.framework.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -91,6 +94,59 @@ public class LightBulbManagerTest {
             assertFalse(manager.isLampBCorrect());
             manager.clickSecondSwitch();
             assertTrue(manager.isLampBCorrect());
+        }
+
+        @Test@DisplayName("Shoul set light bulb in correct configuration")
+        void ShouldSetLightBulbInCorrectConfiguration() {
+            int a = 0;
+            int b = 0;
+            int c = 0;
+            int d = 0;
+
+            ArrayList binaryList = new ArrayList();
+            binaryList.add(a);
+            binaryList.add(b);
+            binaryList.add(c);
+            binaryList.add(d);
+
+            LightBulbManager manager = new LightBulbManager();
+
+            for (int i = 0; i < 16; i++) {
+                a = (int) binaryList.get(0);
+                b = (int) binaryList.get(1);
+                c = (int) binaryList.get(2);
+                d = (int) binaryList.get(3);
+
+                manager.setLightBulbA(a);
+                manager.setLightBulbB(b);
+                manager.setLightBulbAFinalConfig(c);
+                manager.setLightBulbConfigBFinalConfig(d);
+
+                manager.SolveLightBulbProblem();
+                assertTrue(manager.isLampACorrect());
+                assertTrue(manager.isLampBCorrect());
+
+
+                moveToNextPossibleCombination(binaryList);
+            }
+        }
+
+        private void moveToNextPossibleCombination(ArrayList binaryList) {
+            if (binaryList.get(0).equals(0)) {
+                binaryList.set(0,1);
+            }
+
+            else {
+                for (int j = 0; j < 3; j++) {
+                    if (binaryList.get(j).equals(1) && binaryList.get(j + 1).equals(0)) {
+                        binaryList.set(j+1, 1);
+                        for(int t = 0; t < j+1; t++) {
+                            binaryList.set(t, 0);
+                        }
+                        continue;
+                    }
+                }
+            }
         }
     }
 }
