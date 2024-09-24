@@ -6,6 +6,8 @@ public class LightBulbManager {
     private int fa;
     private int fb;
 
+    private int numberOfclicks;
+
     public LightBulbManager() {}
     public LightBulbManager(int ia, int ib, int fa, int fb) {
         if (isInputInvalid(ia)) throw new IllegalArgumentException("Input must be either 0 or 1");
@@ -29,6 +31,10 @@ public class LightBulbManager {
         this.ib = value;
     }
 
+    public void increaseOneClick() {
+        this.numberOfclicks++;
+    }
+
     public int getLightBulbA() {
         return this.ia;
     }
@@ -38,7 +44,7 @@ public class LightBulbManager {
     }
 
     boolean isInputInvalid(int input) {
-        return input == 0 || input == 1;
+        return input != 0 && input != 1;
     }
 
     public void clickFirstSwitch() {
@@ -60,5 +66,13 @@ public class LightBulbManager {
             return;
         }
         this.ib--;
+    }
+
+    public boolean isLampACorrect() {
+        return this.ia == this.fa;
+    }
+
+    public boolean isLampBCorrect() {
+        return this.ib == this.fb;
     }
 }
